@@ -21,17 +21,13 @@ jobs:
       - name: Run Unit Tests
         run: yarn test:ci
 
-      - name: Upload artifact - test-reporter.xml
+      - name: Upload test artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: artifacts-test-reporter
-          path: reports/test-reporter.xml
-
-      - name: Upload artifact - lcov.info
-        uses: actions/upload-artifact@v2
-        with:
-          name: artifacts-lcov
-          path: coverage/lcov.info
+          name: test-artifacts
+          path: | 
+            reports/test-reporter.xml
+            coverage/lcov.info
 
   sonarcloud:
     name: SonarCloud
@@ -42,17 +38,11 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Download artifact - test-reporter.xml
+      - name: Download test artifacts
         uses: actions/download-artifact@v2
         with:
-          name: artifacts-test-reporter
-          path: reports
-
-      - name: Download artifact - lcov.info
-        uses: actions/download-artifact@v2
-        with:
-          name: artifacts-lcov
-          path: coverage
+          name: test-artifacts
+          path: sonar-artifacts
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
