@@ -45,13 +45,13 @@ jobs:
       - name: Download artifact - test-reporter.xml
         uses: actions/download-artifact@v2
         with:
-          name: artifacts-lcov
+          name: artifacts-test-reporter
           path: reports
 
       - name: Download artifact - lcov.info
         uses: actions/download-artifact@v2
         with:
-          name: artifacts-test-reporter
+          name: artifacts-lcov
           path: coverage
 
       - name: SonarCloud Scan
